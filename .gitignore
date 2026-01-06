@@ -5,3 +5,16 @@ node_modules/
 coverage/
 dist/
 build/
+
+# .NET
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.sln.docuser
+.vs/
+.vscode/
+.idea/
+.user
+.userosscache
+.sln.docuser

@@ -39,12 +39,25 @@ The application includes mock logic for local development.
 
 ### 1. Deploy to Cloud Run
 
-Deploy the application, ensuring unauthenticated access is disallowed.
+You can choose to deploy either the **Node.js** or the **.NET** backend. Both share the same frontend in the `public/` directory.
+
 **Note:** Use `gcloud beta` to access the `--iap` flag, which automatically enables IAP for the service.
 
+#### Option A: Deploy Node.js Backend
 ```bash
 gcloud beta run deploy wif-iap-cloudrun \
   --source . \
+  --dockerfile Dockerfile.node \
+  --region us-central1 \
+  --no-allow-unauthenticated \
+  --iap
+```
+
+#### Option B: Deploy .NET Backend
+```bash
+gcloud beta run deploy wif-iap-cloudrun \
+  --source . \
+  --dockerfile Dockerfile.dotnet \
   --region us-central1 \
   --no-allow-unauthenticated \
   --iap

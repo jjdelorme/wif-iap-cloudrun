@@ -1,0 +1,26 @@
+# Build Stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore as distinct layers
+COPY dotnet/dotnet.csproj ./dotnet/
+RUN dotnet restore dotnet/dotnet.csproj
+
+# Copy everything else and build
+COPY dotnet/ ./dotnet/
+WORKDIR /src/dotnet
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime Stage
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Copy static assets (ensure they are in ../public relative to the app execution)
+COPY public/ ../public/
+
+# Bind to port 8080 (Cloud Run default)
+ENV PORT=8080
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "dotnet.dll"]
