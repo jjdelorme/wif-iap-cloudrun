@@ -55,7 +55,7 @@ async Task<object> VerifyIapToken(string iapJwt)
             {
                 TrustedIssuers = { "https://cloud.google.com/iap" },
                 TrustedAudiences = { audience },
-                CertificatesUrl = "https://www.gstatic.com/iap/verify/public_key"
+                CertificatesUrl = "https://www.gstatic.com/iap/verify/public_key-jwk"
             }
         );
 
